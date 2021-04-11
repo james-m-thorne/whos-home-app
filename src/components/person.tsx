@@ -4,7 +4,7 @@ import { Avatar } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native';
 import profiles from '../utils/profiles'
 
-const SIZE = 120
+const SIZE = 110
 
 export interface Props {
   key?: string,
