@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BarChart, Grid } from 'react-native-svg-charts'
 
-export default function Chart() {
-  const fill = 'rgb(134, 65, 244)'
-  const data = [50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80]
+interface Props {
+  name: string
+}
+
+export default function Chart(props: Props) {
+  const [data, setData] = useState([])
   
+  useEffect(() => {
+    loadTimeseries()
+  }, [])
+
+  async function loadTimeseries() {
+    try {
+       const res = await fetch(`http://192.168.1.7:5000/timeseries/${props.name}`)
+       const result = await res.json()
+       setData(Object.values(result))
+   } catch (e) {
+       console.log(e)
+   }
+  }
+
   return (
-    <BarChart style={{ height: 200 }} data={data} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
+    <BarChart style={{ height: 200 }} data={data} svg={{ fill: 'rgb(134, 65, 244)' }} contentInset={{ top: 30, bottom: 30 }} yMin={0} yMax={1}>
         <Grid />
     </BarChart>
   )

@@ -1,5 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useRecoilValue } from 'recoil'
+import { fetchTimeState } from '../atoms/main'
 import Person from './person'
 import Chart from './chart'
 
@@ -10,9 +12,9 @@ export interface Props {
 export default function PersonDetails(props: Props) {
   return (
     <View style={styles.details}>
-      <Person key={props.route.params.name} name={props.route.params.name} isDisabled={false}/>
-      <Chart />
-      <Text>This person was home in the last 20 mins</Text>
+      <Person name={props.route.params.name} isDisabled={props.route.params.isDisabled}/>
+      <Text style={styles.chartTitle}>Timeseries chart for the last hour</Text>
+      <Chart name={props.route.params.name} />
     </View>
   )
 }
@@ -22,6 +24,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     margin: 20
+  },
+  chartTitle: {
+    textAlign: 'center'
   }
 })
 
