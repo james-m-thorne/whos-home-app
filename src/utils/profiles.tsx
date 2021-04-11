@@ -1,7 +1,7 @@
 
 interface Profiles {
-    [key: string]: any,
-  }
+  [key: string]: any,
+}
 
 const profiles : Profiles = {
   Ayesha: require('../assets/ayesha.jpg'),

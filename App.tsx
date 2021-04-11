@@ -1,39 +1,24 @@
-import { StatusBar } from 'expo-status-bar'
+import 'react-native-gesture-handler'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import { StyleSheet, Text, View } from 'react-native'
-import Person from './src/components/person'
-import profiles from './src/utils/profiles'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { StatusBar } from 'expo-status-bar'
+import Home from './src/components/home'
+import PersonDetails from './src/components/personDetails'
+
+const Stack = createStackNavigator()
 
 export default function App() {
   return (
     <RecoilRoot>
-      <Text style={styles.title}>Who's home?</Text>
-      <View style={styles.container}>
-        <View style={styles.profiles}>
-          {Object.keys(profiles).map(name => <Person key={name} name={name} />)}
-        </View>
-        <StatusBar style="auto" />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Person" component={PersonDetails} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <StatusBar style="auto" />
     </RecoilRoot>
   )
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginTop: 100,
-    textAlign: 'center'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  profiles: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  }
-})
