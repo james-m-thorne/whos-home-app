@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil'
 import { StyleSheet, Text, View, Switch } from 'react-native'
 import { fetchTimeState } from '../atoms/main'
 import commonStyles from '../styles/common'
+import request from '../utils/request'
 import Person from './person'
 
 interface WhosHome {
@@ -21,7 +22,7 @@ export default function Home() {
 
   async function loadData() {
     try {
-       const res = await fetch(`http://192.168.1.7:5000/whoshome?seconds=${seconds}`)
+       const res = await request('GET', `http://192.168.1.7:5000/whoshome?seconds=${seconds}`)
        const result = await res.json()
        setWhosHome(result)
    } catch (e) {

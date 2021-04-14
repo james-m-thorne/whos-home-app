@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BarChart, Grid } from 'react-native-svg-charts'
+import request from '../utils/request'
 
 interface Props {
   name: string
@@ -14,7 +15,7 @@ export default function Chart(props: Props) {
 
   async function loadTimeseries() {
     try {
-       const res = await fetch(`http://192.168.1.7:5000/timeseries/${props.name}`)
+       const res = await request('GET', `http://192.168.1.7:5000/timeseries/${props.name}`)
        const result = await res.json()
        setData(Object.values(result))
    } catch (e) {
